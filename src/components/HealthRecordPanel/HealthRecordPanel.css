@@ -1,0 +1,58 @@
+.HealthRecordPanel {
+  background-color: #1e1e2f; /* 深藍灰色背景，避免過深的黑色 */
+  color: #ffffff; /* 白色字體，使其與深色背景形成對比 */
+  text-align: center;
+  padding: 20px;
+  min-height: 100vh; /* 保證佔滿整個視窗高度 */
+}
+
+.record-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #2b2b3d; /* 更柔和的灰藍色，與背景形成層次 */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.record-item {
+  margin: 10px 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #3d3d5c; /* 淺紫灰色，與容器背景形成區別 */
+  color: #ffffff; /* 白色字體讓文字更清晰 */
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+}
+
+.record-item label {
+  font-weight: bold;
+  color: #61dafb; /* 藍色字體，與整體色系保持一致 */
+}
+
+.record-item span {
+  font-size: 1.1em;
+  color: #ffffff;
+}
+
+.HealthRecord-button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  color: white;
+  background-color: #61dafb; /* 使用 React 標誌性的藍色 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.HealthRecord-button:hover {
+  background-color: #21a1f1;
+}

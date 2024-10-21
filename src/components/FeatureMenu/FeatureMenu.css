@@ -1,0 +1,33 @@
+.FeatureMenu {
+    background-color: #282c34;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    min-height: 100vh;
+    
+  }
+  
+  .menu-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .menu-list li {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #61dafb;
+    color: #282c34;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* 確保選單項目佔滿可用寬度 */
+    max-width: 300px; /* 限制選單項目的最大寬度 */
+    margin-left: auto; /* 水平居中對齊 */
+    margin-right: auto; /* 水平居中對齊 */
+  }
+  
+  .menu-list li:hover {
+    background-color: #21a1f1;
+  }
+  
