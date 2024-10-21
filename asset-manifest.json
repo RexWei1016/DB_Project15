@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/RexWei1016/DB_Project15.git/static/css/main.68118931.css",
-    "main.js": "/RexWei1016/DB_Project15.git/static/js/main.bc908f7b.js",
+    "main.js": "/RexWei1016/DB_Project15.git/static/js/main.d7c49f17.js",
     "index.html": "/RexWei1016/DB_Project15.git/index.html",
     "main.68118931.css.map": "/RexWei1016/DB_Project15.git/static/css/main.68118931.css.map",
-    "main.bc908f7b.js.map": "/RexWei1016/DB_Project15.git/static/js/main.bc908f7b.js.map"
+    "main.d7c49f17.js.map": "/RexWei1016/DB_Project15.git/static/js/main.d7c49f17.js.map"
   },
   "entrypoints": [
     "static/css/main.68118931.css",
-    "static/js/main.bc908f7b.js"
+    "static/js/main.d7c49f17.js"
   ]
 }
