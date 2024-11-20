@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Consultation.css';
-import { submitConsultation } from '../../services/api/userApi';  // API 請求
+import { submitConsultation } from '../../services/api/consultApi';  // API 請求
 
 function Consultation() {
   const [consultationData, setConsultationData] = useState({

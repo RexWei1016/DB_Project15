@@ -1,143 +1,79 @@
 import { isMock } from '../../utils/config';
 
-// 模擬的用戶 API
-const mockUserLogin = async (username, password) => {
+// 取得URL
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || ''; // 預設為空字串
+
+const realLogin = async (identifier, password, role) => {
+  // 根據角色選擇 API Endpoint
+  const endpoint = role === 'coach' ? '/coach/login' : '/user/login';
+  const payload = role === 'coach' ? { cID: identifier, password } : { account: identifier, password };
+
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.error || `${role === 'coach' ? 'Coach' : 'User'} login failed`);
+  }
+  return await response.json(); // 返回伺服器的成功回應
+};
+
+// 模擬登入 API
+const mockLogin = async (identifier, password, role) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (username === 'admin15' && password === 'admin15') {
-        resolve({ status: 'success' });
+      if (
+        (role === 'coach' && identifier === 'coach15' && password === 'coach15') ||
+        (role === 'user' && identifier === 'admin15' && password === 'admin15')
+      ) {
+        resolve({ message: `${role === 'coach' ? 'Coach' : 'User'} login successful` });
       } else {
-        reject({ status: 'error', message: 'Invalid credentials' });
+        reject({ error: 'Invalid credentials' });
       }
     }, 1000);
   });
 };
 
-// 真實的用戶 API
-const realUserLogin = async (username, password) => {
-  const response = await fetch('/api/login', {
+// 根據環境變數選擇模擬或真實的 API
+export const login = isMock ? mockLogin : realLogin;
+
+
+
+
+// 真實註冊 API
+const realUserRegister = async (userData) => {
+  const response = await fetch(`${API_BASE_URL}/user/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify(userData),
   });
 
   if (!response.ok) {
-    throw new Error('Login failed');
+    const errorResponse = await response.json();
+    // 確保統一返回錯誤結構
+    throw { error: errorResponse.error || 'Registration failed' };
   }
-  return await response.json();
+  return await response.json(); // 成功時返回伺服器響應
 };
 
-// 根據環境變數選擇模擬或真實的 API
-export const login = isMock ? mockUserLogin : realUserLogin;
 
-
-// 模擬的每日監控數據 API
-const mockGetDailyMonitorData = async () => {
-  return new Promise((resolve) => {
+// 模擬註冊 API（僅供測試）
+const mockUserRegister = async (userData) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({
-        m_date: '2024-10-01',
-        weight: 68,
-        height: 175,
-        b_pressure: '120/80',
-        sleep_duration: 7,
-        sleep_quality: '良好',
-      });
+      if (userData.account === 'testuser') {
+        resolve({ message: 'Registration successful' });
+      } else {
+        // 確保模擬模式的錯誤結構與真實模式一致
+        reject({ error: '帳號已存在!' });
+      }
     }, 1000);
   });
 };
 
-// 真實的每日監控數據 API
-const realGetDailyMonitorData = async () => {
-  const response = await fetch('/api/daily-monitor', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-  });
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch daily monitor data');
-  }
-  return await response.json();
-};
-
-// 根據環境變數選擇模擬或真實的 API
-export const getDailyMonitorData = isMock ? mockGetDailyMonitorData : realGetDailyMonitorData;
-
-// 模擬的運動紀錄提交 API
-const mockSubmitExerciseRecord = async (exerciseData) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ status: 'success' });
-      }, 1000);
-    });
-  };
-  
-  // 真實的運動紀錄提交 API
-  const realSubmitExerciseRecord = async (exerciseData) => {
-    const response = await fetch('/api/exercise-record', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(exerciseData),
-    });
-  
-    if (!response.ok) {
-      throw new Error('Failed to submit exercise record');
-    }
-    return await response.json();
-  };
-  
-  // 根據環境變數選擇模擬或真實的 API
-  export const submitExerciseRecord = isMock ? mockSubmitExerciseRecord : realSubmitExerciseRecord;
-  
-  // 模擬的飲食紀錄提交 API
-const mockSubmitFoodRecord = async (foodData) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ status: 'success' });
-      }, 1000);
-    });
-  };
-  
-  // 真實的飲食紀錄提交 API
-  const realSubmitFoodRecord = async (foodData) => {
-    const response = await fetch('/api/food-record', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(foodData),
-    });
-  
-    if (!response.ok) {
-      throw new Error('Failed to submit food record');
-    }
-    return await response.json();
-  };
-  
-  // 根據環境變數選擇模擬或真實的 API
-  export const submitFoodRecord = isMock ? mockSubmitFoodRecord : realSubmitFoodRecord;
-  
-  // 模擬的諮詢提交 API
-const mockSubmitConsultation = async (consultationData) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ status: 'success' });
-      }, 1000);
-    });
-  };
-  
-  // 真實的諮詢提交 API
-  const realSubmitConsultation = async (consultationData) => {
-    const response = await fetch('/api/consultation', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(consultationData),
-    });
-  
-    if (!response.ok) {
-      throw new Error('Failed to submit consultation');
-    }
-    return await response.json();
-  };
-  
-  // 根據環境變數選擇模擬或真實的 API
-  export const submitConsultation = isMock ? mockSubmitConsultation : realSubmitConsultation;
-  
+// 根據環境選擇模擬或真實的 API
+export const register = isMock ? mockUserRegister : realUserRegister;

@@ -7,12 +7,14 @@ import ExerciseRecord from './containers/Record/ExerciseRecord';
 import FoodRecord from './containers/Record/FoodRecord';
 import Consultation from './containers/Record/Consultation';
 import DefaultPage from './containers/Main/DefaultPage';
+import Register from './containers/Login/Register';
 
 function AppRoutes() {
   return (
     <Routes>
       {/* 登錄頁面路由 */}
       <Route path="/" element={<Login />} />
+      <Route path="/Register" element={<Register />} />
 
       {/* Main 是包含選單的主佈局，其他功能頁面是其子路由 */}
       <Route path="/Main" element={<Main />}>

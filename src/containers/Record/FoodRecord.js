@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './FoodRecord.css';
-import { submitFoodRecord } from '../../services/api/userApi';  // API 請求
+import { submitFoodRecord } from '../../services/api/recordApi';  // API 請求
 
 function FoodRecord() {
   const [foodData, setFoodData] = useState({

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ExerciseRecord.css';
-import { submitExerciseRecord } from '../../services/api/userApi';  // API 請求
+import { submitExerciseRecord } from '../../services/api/recordApi';  // API 請求
 
 function ExerciseRecord() {
   const [exerciseData, setExerciseData] = useState({

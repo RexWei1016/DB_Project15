@@ -56,3 +56,19 @@
 .HealthRecord-button:hover {
   background-color: #21a1f1;
 }
+
+.measure-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  color: white;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.measure-button:hover {
+  background-color: #21a1f1;
+}
