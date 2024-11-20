@@ -1,4 +1,5 @@
 {
+  "homepage": "https://rexwei1016.github.io/DB_Project15/",
   "name": "db_project",
   "version": "0.1.0",
   "private": true,
@@ -19,7 +20,11 @@
     "build": "react-scripts build",
     "build:mock": "env-cmd -f .env.mock react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "predeploy:mock": "npm run build:mock",
+    "deploy": "gh-pages -d build",
+    "deploy:mock": "npm run predeploy:mock && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -40,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "env-cmd": "^10.1.0"
+    "env-cmd": "^10.1.0",
+    "gh-pages": "^6.2.0"
   }
 }
