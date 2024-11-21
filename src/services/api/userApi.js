@@ -77,3 +77,36 @@ const mockUserRegister = async (userData) => {
 
 // 根據環境選擇模擬或真實的 API
 export const register = isMock ? mockUserRegister : realUserRegister;
+
+// 真實註冊 API
+const realCoachRegister = async (coachData) => {
+  const response = await fetch(`${API_BASE_URL}/coach/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(coachData),
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    // 確保統一返回錯誤結構
+    throw { error: errorResponse.error || 'Registration failed' };
+  }
+  return await response.json(); // 成功時返回伺服器響應
+};
+
+// 模擬註冊 API（僅供測試）
+const mockCoachRegister = async (coachData) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (coachData.cID === 'testcoach') {
+        resolve({ message: 'Registration successful' });
+      } else {
+        // 確保模擬模式的錯誤結構與真實模式一致
+        reject({ error: '教練ID已存在!' });
+      }
+    }, 1000);
+  });
+};
+
+// 根據環境選擇模擬或真實的 API
+export const registerCoach = isMock ? mockCoachRegister : realCoachRegister;

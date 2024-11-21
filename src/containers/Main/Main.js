@@ -8,7 +8,7 @@ function Main() {
     <div className="container-fluid g-0">
       <div className="row g-0" style={{ height: '100vh' }}> 
         {/* 選單區域 */}
-        <div className="col-lg-3 d-none d-lg-block">
+        <div className="col-lg-2 d-none d-lg-block FeatureMenu">
           <FeatureMenu />
         </div>
         <div className="col-12 d-lg-none">
@@ -23,7 +23,7 @@ function Main() {
         </div>
 
         {/* 內容區域 */}
-        <div className="content-container col-lg-9">
+        <div className="content-container col-lg-10">
           <Outlet />
         </div>
       </div>

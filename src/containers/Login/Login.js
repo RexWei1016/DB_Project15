@@ -87,6 +87,12 @@ function Login() {
           >
             註冊
           </button>
+          <button
+            className="Register-button"
+            onClick={() => handleNavigation('/CoachRegister')}
+          >
+            教練註冊
+          </button>
         </div>
       </header>
     </div>

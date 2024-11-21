@@ -40,7 +40,7 @@ export const getDailyMonitorData = isMock ? mockGetDailyMonitorData : realGetDai
 
     // 真實的每日監控數據寫入 API
     const realSubmitDailyMonitorData = async (monitorData) => {
-        const response = await fetch(`${API_BASE_URL}/daily_monitor`, {
+        const response = await fetch(`${API_BASE_URL}/daily_monitor/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(monitorData),
@@ -67,3 +67,31 @@ export const getDailyMonitorData = isMock ? mockGetDailyMonitorData : realGetDai
   export const submitDailyMonitorData = isMock
     ? mockSubmitDailyMonitorData
     : realSubmitDailyMonitorData;
+
+    // 真實的每日監控數據刪除 API
+const realDeleteDailyMonitorData = async (userId, mDate) => {
+  const response = await fetch(`${API_BASE_URL}/daily_monitor/${userId}/${mDate}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.error || 'Failed to delete daily monitor data');
+  }
+  return await response.json();
+};
+
+// 模擬的每日監控數據刪除 API
+const mockDeleteDailyMonitorData = async (userId, mDate) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ message: `Daily monitor data for user ${userId} on ${mDate} deleted successfully` });
+    }, 1000);
+  });
+};
+
+// 根據環境變數選擇模擬或真實的 API
+export const deleteDailyMonitorData = isMock
+  ? mockDeleteDailyMonitorData
+  : realDeleteDailyMonitorData;
