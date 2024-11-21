@@ -82,3 +82,45 @@ const mockSubmitFoodRecord = async (foodData) => {
 export const submitFoodRecord = isMock
   ? mockSubmitFoodRecord
   : realSubmitFoodRecord;
+
+  
+// 飲食紀錄查詢 API
+const realGetFoodRecord = async (userID) => {
+  const response = await fetch(`${API_BASE_URL}/food_record/${userID}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch food record');
+  }
+
+  return await response.json();
+};
+
+const mockGetFoodRecord = async (userID) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: [
+          {
+            eat_date: '2024-11-21',
+            fid: 3,
+            food_num: 2,
+            calories: 300,
+          },
+          {
+            eat_date: '2024-11-21',
+            fid: 1,
+            food_num: 2,
+            calories: 1000,
+          },
+        ],
+      });
+    }, 1000);
+  });
+};
+
+export const getFoodRecord = isMock
+  ? mockGetFoodRecord
+  : realGetFoodRecord;

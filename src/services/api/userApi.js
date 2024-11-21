@@ -110,3 +110,35 @@ const mockCoachRegister = async (coachData) => {
 
 // 根據環境選擇模擬或真實的 API
 export const registerCoach = isMock ? mockCoachRegister : realCoachRegister;
+
+// 查詢所有使用者 API
+const realFetchAllUsers = async () => {
+  const response = await fetch(`${API_BASE_URL}/user/users`, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw { error: errorResponse.error || 'Failed to fetch users' };
+  }
+
+  return await response.json(); // 成功時返回使用者資料
+};
+
+// 模擬查詢所有使用者 API（僅供測試）
+const mockFetchAllUsers = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        users: [
+          { ID: 'testuser1', name: 'Test User 1' },
+          { ID: 'testuser2', name: 'Test User 2' },
+        ],
+      });
+    }, 1000);
+  });
+};
+
+// 根據環境變數選擇模擬或真實的 API
+export const fetchAllUsers = isMock ? mockFetchAllUsers : realFetchAllUsers;
