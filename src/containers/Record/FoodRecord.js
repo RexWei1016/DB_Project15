@@ -19,6 +19,7 @@ function FoodRecord() {
 
   const [foodList, setFoodList] = useState([]);
   const [isAddingFood, setIsAddingFood] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(''); // 新增成功訊息的狀態
 
   // 初始化查詢食物列表
   useEffect(() => {
@@ -44,8 +45,6 @@ function FoodRecord() {
     // 當選擇食物時，保存單位卡路里並計算總卡路里（如果數量已存在）
     if (name === 'fid') {
       const selectedFood = foodList.find((food) => food.fid === parseInt(value, 10)); // 確保 fid 類型匹配
-      console.log(foodList);
-      console.log(value);
       if (selectedFood) {
         updatedFoodData.unit_calories = selectedFood.food_calories;
         if (updatedFoodData.food_num) {
@@ -69,7 +68,6 @@ function FoodRecord() {
     setFoodData(updatedFoodData);
   };
 
-
   const handleNewFoodChange = (e) => {
     const { name, value } = e.target;
     setNewFoodData({
@@ -87,16 +85,19 @@ function FoodRecord() {
     }
     try {
       const payload = {
-        eat_date: foodData.eat_date,
+        eat_date: foodData.eat_date, // 時間戳為完整日期與時間
         id: localStorage.getItem('userID'), // 假設用戶 ID 存在 localStorage 中
         fid: parseInt(foodData.fid, 10),
         food_num: parseInt(foodData.food_num, 10),
         calories: parseInt(foodData.calories, 10),
       };
       const response = await submitFoodRecord(payload); // API 提交飲食紀錄
-      if (response.status === 'success') {
-        alert('飲食紀錄成功提交！');
+      if (response.ok) {
+        setSuccessMessage('飲食紀錄成功提交！');
         setFoodData({ eat_date: '', fid: '', food_num: '', calories: '', unit_calories: '' });
+
+        // 清除訊息顯示 3 秒後消失
+        setTimeout(() => setSuccessMessage(''), 3000);
       }
     } catch (error) {
       console.error('提交飲食紀錄失敗', error);
@@ -107,6 +108,7 @@ function FoodRecord() {
     e.preventDefault();
     try {
       const response = await submitFood(newFoodData); // API 提交新增食物
+      console.log(response)
       alert(response.message || '食物新增成功');
       setNewFoodData({ food_type: '', food_calories: '' });
       setIsAddingFood(false);
@@ -119,11 +121,12 @@ function FoodRecord() {
   return (
     <div className="FoodRecord">
       <h1>飲食紀錄輸入</h1>
+      {successMessage && <div className="success-message">{successMessage}</div>}
       <form onSubmit={handleFoodRecordSubmit} className="record-form">
         <div className="form-item">
-          <label>紀錄日期:</label>
+          <label>紀錄日期與時間:</label>
           <input
-            type="date"
+            type="datetime-local"
             name="eat_date"
             value={foodData.eat_date}
             onChange={handleFoodRecordChange}

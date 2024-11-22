@@ -8,7 +8,7 @@ function CoachMain() {
     <div className="container-fluid g-0">
       <div className="row g-0" style={{ height: '100vh' }}>
         {/* 教練選單區域 */}
-        <div className="col-lg-2 d-none d-lg-block CoachMenu">
+        <div className="col-lg-2 d-none d-lg-block CoachMenu FeatureMenu">
           <CoachMenu />
         </div>
         <div className="col-12 d-lg-none">

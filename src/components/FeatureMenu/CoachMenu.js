@@ -26,7 +26,7 @@ function CoachMenu() {
         <li onClick={() => handleNavigation('/CoachMain/food-record')}>
           會員飲食紀錄
         </li>
-        <li onClick={() => handleNavigation('/CoachMain/member-consultation-record')}>
+        <li onClick={() => handleNavigation('/CoachMain/consultation')}>
           會員諮詢紀錄
         </li>
       </ul>

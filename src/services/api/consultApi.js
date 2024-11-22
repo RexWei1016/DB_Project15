@@ -1,7 +1,86 @@
 import { isMock } from '../../utils/config';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
+// 真實查詢教練的諮詢紀錄 API
+const realGetConsultationsByCoach = async (cID) => {
+  const response = await fetch(`${API_BASE_URL}/consultation/coach/${cID}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
 
+  const responseBody = await response.json();
+
+  if (response.status === 404) {
+    throw new Error(responseBody.message || 'No records found for this coach');
+  }
+
+  if (!response.ok) {
+    throw new Error(responseBody.error || 'Failed to fetch consultation records for the coach');
+  }
+
+  return responseBody.data; // 回傳資料
+};
+// 模擬的查詢教練諮詢紀錄 API
+const mockGetConsultationsByCoach = async (cID) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (cID === 'notfound') {
+        reject(new Error('No records found for this coach'));
+      } else {
+        resolve({
+          status: 'success',
+          message: `Consultations for coach ${cID} fetched successfully`,
+          data: [
+            // 模擬數據
+            {
+              ID: 'User1',
+              con_time: '2023-11-21 10:00:00',
+              content: 'Mock consultation content 1',
+            },
+            {
+              ID: 'User2',
+              con_time: '2023-11-21 11:00:00',
+              content: 'Mock consultation content 2',
+            },
+          ],
+        });
+      }
+    }, 1000);
+  });
+};
+// 更新諮詢內容 API
+const realUpdateConsultationContent = async (cID, userId, conTime, newContent) => {
+  const response = await fetch(`${API_BASE_URL}/consultation/${cID}/${userId}/${conTime}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ new_content: newContent }),
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error(responseBody.error || 'Failed to update consultation record');
+  }
+
+  return responseBody.message; // 回傳成功訊息
+};
+
+// 模擬的更新諮詢內容 API
+const mockUpdateConsultationContent = async (cID, userId, conTime, newContent) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        status: 'success',
+        message: `Consultation for coach ${cID}, user ${userId} at time ${conTime} updated successfully with new content: ${newContent}`,
+      });
+    }, 1000);
+  });
+};
+
+// 根據環境變數選擇模擬或真實的 API
+export const updateConsultationContent = isMock ? mockUpdateConsultationContent : realUpdateConsultationContent;
+
+export const getConsultationsByCoach = isMock ? mockGetConsultationsByCoach : realGetConsultationsByCoach;
 // 真實的諮詢提交 API
 const realSubmitConsultation = async (consultationData) => {
   const response = await fetch(`${API_BASE_URL}/consultation/`, {

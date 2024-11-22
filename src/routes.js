@@ -13,6 +13,7 @@ import CoachMain from './containers/Main/CoachMain';
 import CoachHealthRecordPanel from './components/HealthRecordPanel/CoachHealthRecordPanel';
 import CoachExerciseRecordPanel from './containers/Record/Coach_ExerciseRecordPanel';
 import FoodRecordPanel from './containers/Record/Coach_FoodRecordPanel';
+import CoachConsultationManagement from './containers/Record/CoachConsultationManagement';
 
 function AppRoutes() {
   return (
@@ -27,7 +28,7 @@ function AppRoutes() {
         <Route index element={<CoachHealthRecordPanel />} />  {/* 預設頁面 */}
         <Route path="exercise-record" element={<CoachExerciseRecordPanel />} />
         <Route path="food-record" element={<FoodRecordPanel />} />
-        <Route path="consultation" element={<Consultation />} />
+        <Route path="consultation" element={<CoachConsultationManagement />} />
       </Route>
       {/* Main 是包含選單的主佈局，其他功能頁面是其子路由 */}
       <Route path="/Main" element={<Main />}>
