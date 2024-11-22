@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './ExerciseRecord.css';
 import { getExerciseHistory } from '../../services/api/recordApi'; // API: 獲取運動紀錄
 import { fetchAllUsers } from '../../services/api/userApi'; // API: 獲取使用者清單
+import styles from './Coach_ExerciseRecordPanel.module.css';
 
 function CoachExerciseRecordPanel() {
   const [userList, setUserList] = useState([]); // 使用者清單
@@ -63,18 +63,18 @@ function CoachExerciseRecordPanel() {
   };
 
   return (
-    <div className="ExerciseRecord">
+    <div className={styles.ExerciseRecord}>
       <h1>教練運動紀錄面板</h1>
 
-      <div className="main-container">
+      <div className={styles.mainContainer}>
         {/* 左側清單：顯示所有使用者 */}
-        <div className="left-panel">
+        <div className={styles.leftPanel}>
           <h3>選擇使用者</h3>
-          <ul className="user-list">
+          <ul className={styles.userList}>
             {userList.map((user) => (
               <li
                 key={user.ID}
-                className={`user-item ${user.ID === selectedUserID ? 'selected' : ''}`}
+                className={`${styles.userItem} ${user.ID === selectedUserID ? styles.selected : ''}`}
                 onClick={() => handleUserSelection(user.ID)}
               >
                 {user.name} ({user.ID})
@@ -84,13 +84,13 @@ function CoachExerciseRecordPanel() {
         </div>
 
         {/* 中間清單：顯示所選使用者的運動紀錄 */}
-        <div className="middle-panel">
+        <div className={styles.middlePanel}>
           <h3>選擇紀錄日期</h3>
-          <ul className="date-list">
+          <ul className={styles.dateList}>
             {exerciseHistory.map((record) => (
               <li
                 key={`${record.exe_date}-${record.exe_time}`}
-                className={`date-item ${record.exe_date === selectedDateTime.date && record.exe_time === selectedDateTime.time ? 'selected' : ''}`}
+                className={`${styles.dateItem} ${record.exe_date === selectedDateTime.date && record.exe_time === selectedDateTime.time ? styles.selected : ''}`}
                 onClick={() => handleDateSelection(record.exe_date, record.exe_time)}
               >
                 {record.exe_date} {record.exe_time}
@@ -100,23 +100,23 @@ function CoachExerciseRecordPanel() {
         </div>
 
         {/* 右側顯示選擇的日期詳細數據 */}
-        <div className="right-panel">
-          <div className="record-container">
+        <div className={styles.rightPanel}>
+          <div className={styles.recordContainer}>
             {exerciseData.exe_date ? (
               <>
-                <div className="record-item">
+                <div className={styles.recordItem}>
                   <label>紀錄日期: </label>
                   <span>{exerciseData.exe_date}</span>
                 </div>
-                <div className="record-item">
+                <div className={styles.recordItem}>
                   <label>運動時間: </label>
                   <span>{exerciseData.exe_time}</span>
                 </div>
-                <div className="record-item">
+                <div className={styles.recordItem}>
                   <label>運動類型: </label>
                   <span>{exerciseData.exe_type}</span>
                 </div>
-                <div className="record-item">
+                <div className={styles.recordItem}>
                   <label>消耗卡路里: </label>
                   <span>{exerciseData.calories} kcal</span>
                 </div>

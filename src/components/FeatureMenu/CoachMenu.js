@@ -9,6 +9,10 @@ function CoachMenu() {
     navigate(path);
   };
 
+  const handleLogout = () => {
+    navigate('/');
+  };
+
   return (
     <div className="FeatureMenu">
       <h1>教練功能選單</h1>
@@ -26,6 +30,9 @@ function CoachMenu() {
           會員諮詢紀錄
         </li>
       </ul>
+      <button className="logout-button" onClick={handleLogout}>
+        登出
+      </button>
     </div>
   );
 }

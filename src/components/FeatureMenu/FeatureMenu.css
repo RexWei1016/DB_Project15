@@ -30,4 +30,19 @@
   .menu-list li:hover {
     background-color: #21a1f1;
   }
-  
+
+  .logout-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em; /* 調整登出按鈕的字體大小，與選單項目一致 */
+    border-radius: 5px; /* 與選單項目一致的圓角 */
+    border: none; /* 去掉按鈕的預設邊框 */
+    background-color: #61dafb; /* 按鈕背景色與選單項目一致 */
+    color: #282c34; /* 按鈕文字顏色與選單項目一致 */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #21a1f1; /* 按鈕懸停時與選單項目懸停效果一致 */
+}

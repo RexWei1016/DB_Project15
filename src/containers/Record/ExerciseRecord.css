@@ -1,115 +1,119 @@
+/* 確保主容器居中對齊 */
 .ExerciseRecord {
-    background-color: #1e1e2f; /* 深藍灰背景 */
-    color: #ffffff;
-    text-align: center;
-    padding: 20px;
-    min-height: 100vh;
-  }
-  
-  .record-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: #2b2b3d; /* 更柔和的灰藍色背景 */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  .form-item {
-    margin: 10px 0;
-    width: 100%;
-  }
-  
-  .form-item label {
-    display: block;
-    font-weight: bold;
-    color: #61dafb; /* 藍色字體 */
-    margin-bottom: 5px;
-  }
-  
-  .form-item input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .ExerciseRecord-button {
-    padding: 10px 20px;
-    font-size: 1.2em;
-    color: white;
-    background-color: #61dafb;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-  }
-  
-  .ExerciseRecord-button:hover {
-    background-color: #21a1f1;
-  }
-  
-  .left-panel {
-    background-color: #2b2b3d; /* 與主表單背景色一致 */
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    margin-top: 20px;
-  }
-  
-  .right-panel {
-    background-color: #2b2b3d; /* 與主表單背景色一致 */
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    margin-top: 20px;
-  }
-  
-  .date-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .date-item {
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #3b3b4d;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .date-item:hover {
-    background-color: #4b4b5d;
-  }
-  
-  .date-item.selected {
-    background-color: #61dafb;
-    color: #1e1e2f;
-    font-weight: bold;
-  }
-  
-  .record-container {
-    background-color: #3b3b4d; /* 與列表項目相似，但稍微區分 */
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .record-item {
-    margin: 10px 0;
-  }
-  
-  .record-item label {
-    color: #61dafb;
-    font-weight: bold;
-  }
-  
-  
+  background-color: #1e1e2f; /* 深藍灰背景 */
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* 標題在上 */
+  align-items: center; /* 使標題和主內容居中 */
+}
+
+/* 新增 main-container 用來控制面板的置中 */
+.main-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: flex-start; /* 垂直對齊頂部，面板不需要完全垂直居中 */
+  gap: 20px; /* 左右面板之間的間距 */
+  max-width: 900px; /* 設定容器最大寬度以防止過寬 */
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* 左側面板樣式更新 */
+.left-panel {
+  background-color: #2b2b3d; /* 灰藍色背景 */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  min-width: 250px; /* 設定最小寬度 */
+}
+
+/* 右側面板樣式更新 */
+.right-panel {
+  background-color: #2b2b3d; /* 灰藍色背景 */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  min-width: 300px; /* 設定最小寬度 */
+  width: 100%;
+  max-width: 500px; /* 最大寬度 */
+}
+
+/* 運動紀錄表單樣式更新 */
+.record-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #3b3b4d; /* 更加顯眼的背景色 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 表單項目樣式保持一致 */
+.form-item {
+  margin: 10px 0;
+  width: 100%;
+}
+
+.form-item label {
+  display: block;
+  font-weight: bold;
+  color: #61dafb; /* 藍色字體 */
+  margin-bottom: 5px;
+}
+
+.form-item input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 提交按鈕樣式 */
+.ExerciseRecord-button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  color: white;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.ExerciseRecord-button:hover {
+  background-color: #21a1f1;
+}
+
+/* 日期選擇列表樣式 */
+.date-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.date-item {
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #3b3b4d;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.date-item:hover {
+  background-color: #4b4b5d;
+}
+
+.date-item.selected {
+  background-color: #61dafb;
+  color: #1e1e2f;
+  font-weight: bold;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './FoodRecord.css';
+import styles from './Coach_FoodRecordPanel.module.css'; // 使用 CSS Modules
 import { getFoodRecord } from '../../services/api/recordApi'; // API 請求
 import { getAllFoods } from '../../services/api/foodApi'; // 食物相關API
 import { fetchAllUsers } from '../../services/api/userApi'; // API: 獲取使用者清單
@@ -51,18 +51,18 @@ function FoodRecordPanel() {
   };
 
   return (
-    <div className="FoodRecordPanel">
+    <div className={styles.FoodRecordPanel}>
       <h1>飲食紀錄管理</h1>
 
-      <div className="main-container">
+      <div className={styles['main-container']}>
         {/* 左側使用者選擇 */}
-        <div className="left-panel">
+        <div className={styles['left-panel']}>
           <h3>選擇使用者</h3>
-          <ul className="user-list">
+          <ul className={styles['user-list']}>
             {userList.map((user) => (
               <li
                 key={user.ID}
-                className={`user-item ${user.ID === selectedUserID ? 'selected' : ''}`}
+                className={`${styles['user-item']} ${user.ID === selectedUserID ? styles.selected : ''}`}
                 onClick={() => handleUserSelection(user.ID)}
               >
                 {user.name} ({user.ID})
@@ -72,9 +72,9 @@ function FoodRecordPanel() {
         </div>
 
         {/* 中間紀錄顯示 */}
-        <div className="middle-panel">
+        <div className={styles['middle-panel']}>
           <h3>飲食紀錄</h3>
-          <ul className="record-list">
+          <ul className={styles['record-list']}>
             {foodRecords.map((record, index) => (
               <li key={index}>
                 日期: {record.eat_date} | 食物ID: {record.fid} | 數量: {record.food_num} | 卡路里: {record.calories}

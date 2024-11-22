@@ -26,12 +26,19 @@ function Login() {
       localStorage.setItem('role', isCoach ? 'coach' : 'user'); // 存儲角色
   
       alert(response.message || 'Login successful!');
-      navigate('/Main'); // 跳轉到主頁
+  
+      // 根據角色導航到不同的頁面
+      if (isCoach) {
+        navigate('/CoachMain'); // 跳轉到教練主頁
+      } else {
+        navigate('/Main'); // 跳轉到主頁
+      }
     } catch (error) {
       console.error('Login Error:', error.message);
       alert(error.message || 'Invalid credentials, please try again!');
     }
   };
+  
   
 
   return (

@@ -9,6 +9,10 @@ function FeatureMenu() {
     navigate(path);
   };
 
+  const handleLogout = () => {
+    navigate('/');
+  };
+
   return (
     <div className="FeatureMenu">
       <h1>功能選單</h1>
@@ -26,6 +30,9 @@ function FeatureMenu() {
           諮詢健康教練
         </li>
       </ul>
+      <button className="logout-button" onClick={handleLogout}>
+        登出
+      </button>
     </div>
   );
 }
