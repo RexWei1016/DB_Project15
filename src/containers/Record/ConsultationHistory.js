@@ -1,33 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './ConsultationHistory.module.css'; // 引入 CSS Modules
 
-import { getConsultationsByUser } from '../../services/api/consultApi';  // API 請求
-
-function ConsultationHistory() {
-  const [userId, setUserId] = useState('');
-  const [consultations, setConsultations] = useState([]);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const storedUserId = localStorage.getItem('userID'); // 從 localStorage 獲取使用者ID
-    if (storedUserId) {
-      setUserId(storedUserId);
-      fetchConsultations(storedUserId);
-    } else {
-      setError('未找到使用者ID，請先登入。');
-    }
-  }, []);
-
-  const fetchConsultations = async (userId) => {
-    try {
-      const response = await getConsultationsByUser(userId); // 使用 API 獲取諮詢紀錄
-      setConsultations(response);
-    } catch (error) {
-      setError('獲取諮詢紀錄失敗，請稍後再試。');
-      console.error('獲取諮詢紀錄失敗', error);
-    }
-  };
-
+function ConsultationHistory({ consultations, error }) {
   return (
     <div className={styles.consultationHistory}>
       <h1>我的諮詢紀錄</h1>
@@ -36,8 +10,8 @@ function ConsultationHistory() {
         <div className={styles.emptyMessage}>暫無諮詢紀錄。</div>
       )}
       <div className={styles.consultationsList}>
-        {consultations.map((consultation) => (
-          <div key={consultation.cID} className={styles.consultationItem}>
+        {consultations.map((consultation, index) => (
+          <div key={`${consultation.cID}-${index}`} className={styles.consultationItem}>
             <div className={styles.consultationHeader}>
               <h3 className={styles.consultationHeaderTitle}>
                 <span className={styles.consultationIcon}>📋</span> 諮詢ID: {consultation.cID}

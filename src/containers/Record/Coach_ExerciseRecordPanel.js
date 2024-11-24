@@ -30,6 +30,8 @@ function CoachExerciseRecordPanel() {
     try {
       const response = await getExerciseHistory(userID);
       if (response && response.data && response.data.length > 0) {
+        console.log(response.data); // 檢查 API 返回資料
+
         setExerciseHistory(response.data);
         const latestRecord = response.data[0];
         setSelectedDateTime({ date: latestRecord.exe_date, time: latestRecord.exe_time });
@@ -114,8 +116,9 @@ function CoachExerciseRecordPanel() {
                 </div>
                 <div className={styles.recordItem}>
                   <label>運動類型: </label>
-                  <span>{exerciseData.exe_type}</span>
+                  <span>{exerciseData.exercise_type}</span>
                 </div>
+
                 <div className={styles.recordItem}>
                   <label>消耗卡路里: </label>
                   <span>{exerciseData.calories} kcal</span>

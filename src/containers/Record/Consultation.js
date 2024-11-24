@@ -42,15 +42,27 @@ function Consultation() {
   };
 
   const fetchConsultations = async (userId) => {
+    if (!userId) {
+      console.error('用戶 ID 不存在，無法獲取諮詢紀錄');
+      return;
+    }
     try {
-      const response = await getConsultationsByUser(userId); // 使用 API 獲取諮詢紀錄
+      const response = await getConsultationsByUser(userId);
       setConsultations(response);
     } catch (error) {
-      setError('獲取諮詢紀錄失敗，請稍後再試。');
-      setShowErrorModal(true); // 顯示錯誤信息
-      console.error('獲取諮詢紀錄失敗', error);
+      if (error.message === "No records found" || error.response?.status === 404) {
+        // 如果是找不到紀錄的情況，不顯示錯誤視窗，僅在控制台記錄
+        console.warn('沒有找到諮詢紀錄');
+        setConsultations([]); // 將諮詢紀錄設為空列表
+      } else {
+        // 其他錯誤才顯示錯誤信息
+        setError('獲取諮詢紀錄失敗，請稍後再試。');
+        setShowErrorModal(true); // 顯示錯誤信息
+        console.error('獲取諮詢紀錄失敗', error);
+      }
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -86,8 +98,7 @@ function Consultation() {
         alert('諮詢成功提交！');
         setConsultationData({ cID: '', ID: userId, con_time: '', content: '' });
         setError('');
-        setConsultations([]);
-        fetchConsultations(userId);
+        fetchConsultations(userId); // 重新獲取諮詢紀錄以更新
       } else {
         throw new Error(responseBody.error || '提交諮詢失敗，請稍後再試。');
       }
@@ -102,7 +113,6 @@ function Consultation() {
     setShowErrorModal(false);
     setError('');
   };
-
 
   return (
     <div className="Consultation">
@@ -119,7 +129,7 @@ function Consultation() {
             <option value="" disabled>選擇教練</option>
             {coaches && coaches.length > 0 ? (
               coaches.map((coach) => (
-                <option key={coach.cID} value={coach.cID}>
+                <option key={`${coach.cID}-${coach.name}`} value={coach.cID}>
                   {coach.name} ({coach.cID})
                 </option>
               ))

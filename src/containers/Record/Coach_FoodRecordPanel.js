@@ -9,6 +9,7 @@ function FoodRecordPanel() {
   const [foodRecords, setFoodRecords] = useState([]);
   const [userList, setUserList] = useState([]); // 使用者清單
   const [selectedUserID, setSelectedUserID] = useState('');
+  const [isFoodRecordFetched, setIsFoodRecordFetched] = useState(false); // 是否已查詢過飲食紀錄
 
   // 初始化查詢食物列表和使用者清單
   useEffect(() => {
@@ -38,15 +39,23 @@ function FoodRecordPanel() {
 
   const fetchFoodRecords = async (userID) => {
     try {
+      // 清空之前的紀錄以避免顯示錯誤的數據
+      setFoodRecords([]);
+      setIsFoodRecordFetched(false); // 開始查詢時設為 false
+
       const response = await getFoodRecord(userID); // API 查詢飲食紀錄
       setFoodRecords(response.data || []);
     } catch (error) {
       console.error('查詢飲食紀錄失敗:', error);
+    } finally {
+      setIsFoodRecordFetched(true); // 無論成功或失敗都標記為已查詢
     }
   };
-
+  
   const handleUserSelection = (userID) => {
     setSelectedUserID(userID);
+    setFoodRecords([]); // 馬上清空紀錄，提升 UI 的即時性
+    setIsFoodRecordFetched(false); // 重置狀態
     fetchFoodRecords(userID); // 查詢該用戶的飲食紀錄
   };
 
@@ -74,13 +83,17 @@ function FoodRecordPanel() {
         {/* 中間紀錄顯示 */}
         <div className={styles['middle-panel']}>
           <h3>飲食紀錄</h3>
-          <ul className={styles['record-list']}>
-            {foodRecords.map((record, index) => (
-              <li key={index}>
-                日期: {record.eat_date} | 食物ID: {record.fid} | 數量: {record.food_num} | 卡路里: {record.calories}
-              </li>
-            ))}
-          </ul>
+          {isFoodRecordFetched && foodRecords.length === 0 ? (
+            <p>沒有找到飲食紀錄</p>
+          ) : (
+            <ul className={styles['record-list']}>
+              {foodRecords.map((record, index) => (
+                <li key={index}>
+                  日期: {record.eat_date} | 食物ID: {record.fid} | 數量: {record.food_num} | 卡路里: {record.calories}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ function CoachConsultationHistory() {
     // 從 localStorage 獲取角色和使用者 ID
     const storedRole = localStorage.getItem('role');
     const storedUserId = localStorage.getItem('userID');
-    console.log(storedUserId)
+    console.log(storedUserId);
     // 如果角色是教練，則將 userID 當作 coachID 使用
     if (storedRole === 'coach' && storedUserId) {
       setCoachId(storedUserId);
@@ -26,12 +26,28 @@ function CoachConsultationHistory() {
   const fetchConsultations = async (cID) => {
     try {
       const response = await getConsultationsByCoach(cID); // 使用 API 獲取諮詢紀錄
-      setConsultations(response);
+      
+      if (response.length === 0) {
+        // 當返回空列表時，表示暫無諮詢紀錄
+        setConsultations([]);
+        setError(''); // 清除錯誤訊息
+      } else {
+        setConsultations(response);
+        setError(''); // 清除錯誤訊息
+      }
     } catch (error) {
-      setError('獲取諮詢紀錄失敗，請稍後再試。');
+      if (error.message === 'No records found for this coach') {
+        // 當 404 或模擬返回未找到紀錄時，顯示沒有紀錄而不是錯誤
+        setConsultations([]);
+        setError(''); // 清除錯誤訊息，因為這只是沒有找到任何紀錄
+      } else {
+        // 其他錯誤才顯示更具體的錯誤訊息
+        setError('獲取諮詢紀錄失敗，請稍後再試。');
+      }
       console.error('獲取諮詢紀錄失敗', error);
     }
   };
+  
 
   const handleEditClick = (index, currentContent) => {
     setEditingIndex(index);
@@ -57,7 +73,9 @@ function CoachConsultationHistory() {
       <h1>教練的諮詢紀錄</h1>
       {error && <div className={styles.errorMessage}>{error}</div>}
       {!error && consultations.length === 0 && (
-        <div className={styles.emptyMessage}>暫無諮詢紀錄。</div>
+        <div className={styles.emptyMessage}>
+          暫無諮詢紀錄。若需要新增紀錄，請開始新的諮詢！
+        </div>
       )}
       <div className={styles.consultationsList}>
         {consultations.map((consultation, index) => (

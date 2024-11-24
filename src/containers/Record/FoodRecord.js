@@ -20,6 +20,8 @@ function FoodRecord() {
   const [foodList, setFoodList] = useState([]);
   const [isAddingFood, setIsAddingFood] = useState(false);
   const [successMessage, setSuccessMessage] = useState(''); // 新增成功訊息的狀態
+  const [errorMessage, setErrorMessage] = useState(''); // 新增錯誤訊息的狀態
+  const [isModalOpen, setIsModalOpen] = useState(false); // 控制 Modal 顯示狀態
 
   // 初始化查詢食物列表
   useEffect(() => {
@@ -32,6 +34,7 @@ function FoodRecord() {
       setFoodList(response.data || []);
     } catch (error) {
       console.error('獲取食物列表失敗:', error);
+      setErrorMessage('無法獲取食物列表，請稍後再試。');
     }
   };
 
@@ -92,15 +95,13 @@ function FoodRecord() {
         calories: parseInt(foodData.calories, 10),
       };
       const response = await submitFoodRecord(payload); // API 提交飲食紀錄
-      if (response.ok) {
-        setSuccessMessage('飲食紀錄成功提交！');
-        setFoodData({ eat_date: '', fid: '', food_num: '', calories: '', unit_calories: '' });
-
-        // 清除訊息顯示 3 秒後消失
-        setTimeout(() => setSuccessMessage(''), 3000);
-      }
+  
+      setSuccessMessage(response.message || '飲食紀錄成功提交！');
+      setIsModalOpen(true); // 打開 Modal 來顯示成功訊息
+      setFoodData({ eat_date: '', fid: '', food_num: '', calories: '', unit_calories: '' });
     } catch (error) {
       console.error('提交飲食紀錄失敗', error);
+      setErrorMessage(error.message || '提交飲食紀錄失敗，請稍後再試。');
     }
   };
 
@@ -108,20 +109,29 @@ function FoodRecord() {
     e.preventDefault();
     try {
       const response = await submitFood(newFoodData); // API 提交新增食物
-      console.log(response)
-      alert(response.message || '食物新增成功');
-      setNewFoodData({ food_type: '', food_calories: '' });
-      setIsAddingFood(false);
-      fetchFoodList(); // 更新食物列表
+      if (response.ok) {
+        alert(response.message || '食物新增成功');
+        setNewFoodData({ food_type: '', food_calories: '' });
+        setIsAddingFood(false);
+        fetchFoodList(); // 更新食物列表
+      } else {
+        setErrorMessage('新增食物失敗，請稍後再試。');
+      }
     } catch (error) {
       console.error('新增食物失敗:', error);
+      setErrorMessage('新增食物失敗，請稍後再試。');
+    } finally {
+      // 清除訊息顯示 3 秒後消失
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
     }
   };
 
   return (
     <div className="FoodRecord">
       <h1>飲食紀錄輸入</h1>
-      {successMessage && <div className="success-message">{successMessage}</div>}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
       <form onSubmit={handleFoodRecordSubmit} className="record-form">
         <div className="form-item">
           <label>紀錄日期與時間:</label>
@@ -173,6 +183,18 @@ function FoodRecord() {
           提交紀錄
         </button>
       </form>
+
+      {isModalOpen && (
+        <div className="custom-modal">
+          <div className="modal-content">
+            <h2>成功</h2>
+            <p>{successMessage}</p>
+            <button onClick={() => setIsModalOpen(false)} className="FoodRecord-button">
+              關閉
+            </button>
+          </div>
+        </div>
+      )}
 
       <h2>新增食物</h2>
       {!isAddingFood ? (

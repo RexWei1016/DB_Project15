@@ -20,6 +20,7 @@ const realGetConsultationsByCoach = async (cID) => {
 
   return responseBody.data; // 回傳資料
 };
+
 // 模擬的查詢教練諮詢紀錄 API
 const mockGetConsultationsByCoach = async (cID) => {
   return new Promise((resolve, reject) => {
@@ -27,27 +28,23 @@ const mockGetConsultationsByCoach = async (cID) => {
       if (cID === 'notfound') {
         reject(new Error('No records found for this coach'));
       } else {
-        resolve({
-          status: 'success',
-          message: `Consultations for coach ${cID} fetched successfully`,
-          data: [
-            // 模擬數據
-            {
-              ID: 'User1',
-              con_time: '2023-11-21 10:00:00',
-              content: 'Mock consultation content 1',
-            },
-            {
-              ID: 'User2',
-              con_time: '2023-11-21 11:00:00',
-              content: 'Mock consultation content 2',
-            },
-          ],
-        });
+        resolve([
+          {
+            ID: 'User1',
+            con_time: '2023-11-21 10:00:00',
+            content: 'Mock consultation content 1',
+          },
+          {
+            ID: 'User2',
+            con_time: '2023-11-21 11:00:00',
+            content: 'Mock consultation content 2',
+          },
+        ]);
       }
     }, 1000);
   });
 };
+
 // 更新諮詢內容 API
 const realUpdateConsultationContent = async (cID, userId, conTime, newContent) => {
   const response = await fetch(`${API_BASE_URL}/consultation/${cID}/${userId}/${conTime}`, {

@@ -29,7 +29,7 @@ function ExerciseRecord() {
     const { name, value } = e.target;
     setExerciseData({
       ...exerciseData,
-      [name]: value,
+      [name]: value || '', // 確保不會設置為 undefined
     });
   };
 
@@ -62,10 +62,10 @@ function ExerciseRecord() {
         setSelectedDateTime({ date: latestRecord.exe_date, time: latestRecord.exe_time });
         setExerciseData((prevData) => ({
           ...prevData,
-          exe_date: latestRecord.exe_date,
-          exe_time: latestRecord.exe_time,
-          exe_type: latestRecord.exe_type,
-          calories: latestRecord.calories,
+          exe_date: latestRecord.exe_date || '',
+          exe_time: latestRecord.exe_time || '',
+          exe_type: latestRecord.exe_type || '',
+          calories: latestRecord.calories || '',
         }));
       } else {
         setExerciseHistory([]);
@@ -80,14 +80,13 @@ function ExerciseRecord() {
     setSelectedDateTime({ date, time });
     const selectedData = exerciseHistory.find((record) => record.exe_date === date && record.exe_time === time);
     if (selectedData) {
-      console.log(selectedData)
       setExerciseData((prevData) => ({
         ...prevData,
-        exe_date: selectedData.exe_date,
+        exe_date: selectedData.exe_date || '',
         id: selectedData.id || exerciseData.id, // 確保 ID 正確設置
-        exe_time: selectedData.exe_time,
-        exe_type: selectedData.exercise_type,
-        calories: selectedData.calories,
+        exe_time: selectedData.exe_time || '',
+        exe_type: selectedData.exercise_type || '',
+        calories: selectedData.calories || '',
       }));
     } else {
       console.warn('No matching record found for the selected date and time');
@@ -116,18 +115,18 @@ function ExerciseRecord() {
           <form onSubmit={handleSubmit} className="record-form">
             <div className="form-item" style={{ display: 'none' }}>
               <label>用戶ID:</label>
-              <input type="text" name="id" value={exerciseData.id} readOnly />
+              <input type="text" name="id" value={exerciseData.id || ''} readOnly />
             </div>
             <div className="form-item">
               <label>紀錄日期:</label>
-              <input type="date" name="exe_date" value={exerciseData.exe_date} onChange={handleChange} required />
+              <input type="date" name="exe_date" value={exerciseData.exe_date || ''} onChange={handleChange} required />
             </div>
             <div className="form-item">
               <label>運動時間:</label>
               <input
                 type="time"
                 name="exe_time"
-                value={exerciseData.exe_time}
+                value={exerciseData.exe_time || ''}
                 onChange={handleChange}
                 placeholder="HH:MM:SS"
                 required
@@ -138,7 +137,7 @@ function ExerciseRecord() {
               <input
                 type="text"
                 name="exe_type"
-                value={exerciseData.exe_type}
+                value={exerciseData.exe_type || ''}
                 onChange={handleChange}
                 placeholder="例如：跑步、游泳"
                 required
@@ -149,7 +148,7 @@ function ExerciseRecord() {
               <input
                 type="number"
                 name="calories"
-                value={exerciseData.calories}
+                value={exerciseData.calories || ''}
                 onChange={handleChange}
                 placeholder="消耗的卡路里數"
                 required
