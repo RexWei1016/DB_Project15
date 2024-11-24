@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FeatureMenu.css';
 
-function FeatureMenu() {
+function CoachMenu() {
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
@@ -15,19 +15,19 @@ function FeatureMenu() {
 
   return (
     <div className="FeatureMenu">
-      <h1>功能選單</h1>
+      <h1>教練功能選單</h1>
       <ul className="menu-list">
-        <li onClick={() => handleNavigation('/Main/')}>
-          身體記錄量測
+        <li onClick={() => handleNavigation('/CoachMain/')}>
+          會員日常監測
         </li>
-        <li onClick={() => handleNavigation('/Main/exercise-record')}>
-          運動記錄輸入
+        <li onClick={() => handleNavigation('/CoachMain/exercise-record')}>
+          會員運動紀錄
         </li>
-        <li onClick={() => handleNavigation('/Main/food-record')}>
-          飲食記錄輸入
+        <li onClick={() => handleNavigation('/CoachMain/food-record')}>
+          會員飲食紀錄
         </li>
-        <li onClick={() => handleNavigation('/Main/consultation')}>
-          諮詢健康教練
+        <li onClick={() => handleNavigation('/CoachMain/consultation')}>
+          會員諮詢紀錄
         </li>
       </ul>
       <button className="logout-button" onClick={handleLogout}>
@@ -37,4 +37,4 @@ function FeatureMenu() {
   );
 }
 
-export default FeatureMenu;
+export default CoachMenu;

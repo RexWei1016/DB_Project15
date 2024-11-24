@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:mock": "env-cmd -f .env.mock react-scripts start",
+    "start:mock": "env-cmd -f .env.development react-scripts start",
     "build": "react-scripts build",
     "build:mock": "env-cmd -f .env.mock react-scripts build",
     "test": "react-scripts test",

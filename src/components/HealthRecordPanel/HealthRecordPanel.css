@@ -1,39 +1,138 @@
+/* HealthRecordPanel CSS - 改進版 */
+
 .HealthRecordPanel {
   background-color: #1e1e2f; /* 深藍灰色背景，避免過深的黑色 */
   color: #ffffff; /* 白色字體，使其與深色背景形成對比 */
   text-align: center;
   padding: 20px;
   min-height: 100vh; /* 保證佔滿整個視窗高度 */
-}
-
-.record-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.main-container {
+  display: flex;
   width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  background-color: #2b2b3d; /* 更柔和的灰藍色，與背景形成層次 */
+  max-width: 1200px;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.left-panel {
+  width: 30%;
+  padding: 20px;
+  background-color: #2b2b3d; /* 左側面板背景顏色 */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.left-panel h3 {
+  color: #61dafb; /* 使用 React 標誌性的藍色 */
+  margin-bottom: 15px;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #3d3d5c; /* 淺紫灰色，與容器背景形成區別 */
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: left;
+}
+
+.user-item:hover {
+  background-color: #52527a; /* 點擊時的變化 */
+}
+
+.user-item.selected {
+  background-color: #61dafb; /* 選中的使用者顯示藍色 */
+  color: #1e1e2f;
+}
+
+.middle-panel {
+  width: 30%;
+  padding: 20px;
+  background-color: #2b2b3d;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.middle-panel h3 {
+  color: #61dafb;
+  margin-bottom: 15px;
+}
+
+.date-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.date-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #3d3d5c;
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: left;
+}
+
+.date-item:hover {
+  background-color: #52527a;
+}
+
+.date-item.selected {
+  background-color: #61dafb;
+  color: #1e1e2f;
+}
+
+.right-panel {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2b2b3d;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+.record-container {
+  width: 100%;
+  background-color: #2b2b3d;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+
 .record-item {
   margin: 10px 0;
   padding: 15px;
-  width: 100%;
-  background-color: #3d3d5c; /* 淺紫灰色，與容器背景形成區別 */
-  color: #ffffff; /* 白色字體讓文字更清晰 */
+  background-color: #3d3d5c;
+  color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
+  text-align: left;
 }
 
 .record-item label {
   font-weight: bold;
-  color: #61dafb; /* 藍色字體，與整體色系保持一致 */
+  color: #61dafb;
 }
 
 .record-item span {
@@ -45,7 +144,7 @@
   padding: 10px 20px;
   font-size: 1.2em;
   color: white;
-  background-color: #61dafb; /* 使用 React 標誌性的藍色 */
+  background-color: #61dafb;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -54,5 +153,48 @@
 }
 
 .HealthRecord-button:hover {
+  background-color: #21a1f1;
+}
+
+/* RWD - 當視窗寬度小於 768px 時，改變佈局 */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-panel,
+  .middle-panel,
+  .right-panel {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+input[type="date"] {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #3d3d5c;
+  border-radius: 5px;
+  background-color: #2b2b3d;
+  color: #ffffff;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.measure-button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  color: white;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.measure-button:hover {
   background-color: #21a1f1;
 }

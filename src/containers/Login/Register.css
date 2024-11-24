@@ -1,0 +1,123 @@
+.Register {
+    text-align: center;
+  }
+  
+  .Register-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .Register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .Register-form input,
+  .Register-form select {
+    margin: 10px 0;
+    padding: 10px;
+    width: 90%;
+    max-width: 300px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .Register-form select {
+    background-color: white;
+  }
+  
+  .Register-form button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #61dafb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Register-form button:hover {
+    background-color: #21a1f1;
+  }
+  
+  .Register-form .phone-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .Register-form .phone-group div {
+    margin: 10px 0;
+    width: 100%;
+  }
+  
+  .Register-form .phone-group input {
+    margin: 5px 0;
+  }
+  
+  .Register-form .add-phone-button {
+    background-color: #ffa726;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Register-form .add-phone-button:hover {
+    background-color: #fb8c00;
+  }
+  
+  .phone-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .phone-group input {
+    flex: 1;
+  }
+  
+  .phone-group button {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .phone-group button:hover {
+    background-color: #e55337;
+  }
+  
+  .add-phone-button {
+    margin-top: 10px;
+    background-color: #61dafb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .add-phone-button:hover {
+    background-color: #21a1f1;
+  }
+  
